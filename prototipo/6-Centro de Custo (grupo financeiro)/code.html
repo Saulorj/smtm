@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinanceApp - Gerenciamento de Centros de Custo</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec6d",
+                        "primary-dark": "#0fb854",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#102218",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#15281e",
+                        "text-main": "#111814",
+                        "text-secondary": "#618972",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334b3f;
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Toggle Switch Styling mimicking DaisyUI */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #13ec6d;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #13ec6d;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-white font-display overflow-hidden h-screen flex transition-colors duration-200">
+<!-- Sidebar -->
+<aside class="w-64 bg-surface-light dark:bg-surface-dark border-r border-[#e5e7eb] dark:border-[#1f3629] flex flex-col h-full shrink-0 transition-colors duration-200 hidden md:flex">
+<div class="p-6 pb-2">
+<div class="flex gap-3 items-center mb-8">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 shrink-0 shadow-sm border border-gray-100 dark:border-gray-800" data-alt="Abstract green geometric logo for finance app" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCRS8xlIMY2M87M9Xfs7upFdQYjQIaR5EsOpPxcexjNVVtQy_hV_CE8mzBybpDnSZbLJngKtkBapiCeUp6GAp3HRzcoDX5SeQvz-P5OqwjxN6cz9NNHfSQtc4_V83eOs-BLnow0jco0cKzr4tmhYSAVu3o5I5iLXhFXAjtEekZpLxcd2QDPCSJ2PGcI3IldR_O_LdNN0T1jgPEGhCV2FKWKLZ8kEDhSogQ8dRGXWZhlP71wog0tt4t3orO0gpuZAAT-y3m5fsdemL8");'></div>
+<div class="flex flex-col">
+<h1 class="text-text-main dark:text-white text-base font-bold leading-tight">FinanceApp</h1>
+<p class="text-text-secondary dark:text-gray-400 text-xs font-normal">Colaborativo</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-main dark:text-gray-200 hover:bg-[#f0f4f2] dark:hover:bg-[#1f3629] transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#618972] group-hover:text-primary dark:text-gray-400">dashboard</span>
+<p class="text-sm font-medium">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#f0f4f2] dark:bg-[#1f3629] text-text-main dark:text-white" href="#">
+<span class="material-symbols-outlined text-text-main dark:text-primary fill-1">account_balance_wallet</span>
+<p class="text-sm font-medium">Centros de Custo</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-main dark:text-gray-200 hover:bg-[#f0f4f2] dark:hover:bg-[#1f3629] transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#618972] group-hover:text-primary dark:text-gray-400">bar_chart</span>
+<p class="text-sm font-medium">Relatórios</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-main dark:text-gray-200 hover:bg-[#f0f4f2] dark:hover:bg-[#1f3629] transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#618972] group-hover:text-primary dark:text-gray-400">settings</span>
+<p class="text-sm font-medium">Configurações</p>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-4 border-t border-[#e5e7eb] dark:border-[#1f3629]">
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#f0f4f2] dark:hover:bg-[#1f3629] cursor-pointer">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8 shrink-0" data-alt="User profile picture of a woman smiling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCm2V-bWsI-z_PIUvswZj_G2f7u7ID9pZBOeSvk_kBw1Lwl7Eus5dJCC3oHfVzelUkC0zh5tFw-eRPoEkOK-BR_CVqE2uWfGikP5P41nZHahMZtBS7NiZpGkG84XVFASNq4JpwF6mZaIbYyaPlKQWAXZSIhe5gT1WARjl7I7hMUD91UUMd9ZG1eyI-fZMV-YaG9lmJl2bljlRJsqqZFHEsepb61h7dRYZUgFANo0aVNurTVGn27IeYXA1_4Sh8o0ayRShigiOFKgS4");'></div>
+<div class="flex flex-col overflow-hidden">
+<p class="text-text-main dark:text-white text-sm font-medium truncate">Ana Silva</p>
+<p class="text-text-secondary dark:text-gray-400 text-xs truncate">ana@finance.co</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Header Section -->
+<header class="bg-surface-light dark:bg-surface-dark border-b border-[#e5e7eb] dark:border-[#1f3629] shrink-0 p-6 pb-4">
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap gap-2 mb-4">
+<a class="text-text-secondary dark:text-gray-400 text-sm font-medium hover:text-primary transition-colors" href="#">Home</a>
+<span class="text-text-secondary dark:text-gray-500 text-sm font-medium">/</span>
+<a class="text-text-secondary dark:text-gray-400 text-sm font-medium hover:text-primary transition-colors" href="#">Configurações</a>
+<span class="text-text-secondary dark:text-gray-500 text-sm font-medium">/</span>
+<span class="text-text-main dark:text-white text-sm font-medium">Centros de Custo</span>
+</div>
+<!-- Page Heading -->
+<div class="flex flex-wrap justify-between gap-4 items-end">
+<div class="flex flex-col gap-1">
+<h1 class="text-text-main dark:text-white text-3xl font-black tracking-tight">Centros de Custo</h1>
+<p class="text-text-secondary dark:text-gray-400 text-base">Gerencie orçamentos e permissões de equipe</p>
+</div>
+<button class="flex items-center justify-center gap-2 rounded-lg bg-primary hover:bg-primary-dark text-[#052e16] h-10 px-5 text-sm font-bold shadow-sm transition-all active:scale-95">
+<span class="material-symbols-outlined text-lg">add</span>
+<span>Novo Centro de Custo</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content Area -->
+<div class="flex-1 overflow-y-auto p-6 scroll-smooth">
+<div class="max-w-[1400px] mx-auto h-full flex flex-col gap-6">
+<!-- Filters Bar -->
+<div class="flex flex-col md:flex-row gap-4 justify-between items-center bg-surface-light dark:bg-surface-dark p-2 rounded-xl border border-transparent dark:border-[#1f3629]">
+<div class="w-full md:w-auto flex-1 max-w-md">
+<label class="flex w-full items-center rounded-lg bg-[#f0f4f2] dark:bg-[#1a2c22] px-3 h-10 focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-1 dark:focus-within:ring-offset-[#102218] transition-all">
+<span class="material-symbols-outlined text-text-secondary dark:text-gray-400">search</span>
+<input class="w-full bg-transparent border-none text-text-main dark:text-white text-sm placeholder:text-text-secondary dark:placeholder:text-gray-500 focus:ring-0 ml-2" placeholder="Buscar centro de custo..."/>
+</label>
+</div>
+<div class="flex gap-2 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
+<button class="flex h-8 items-center gap-2 rounded-lg bg-[#111814] dark:bg-primary text-white dark:text-[#052e16] px-4 text-xs font-bold transition-colors shrink-0">
+                            Ativos
+                            <span class="bg-white/20 dark:bg-black/10 px-1.5 py-0.5 rounded text-[10px]">3</span>
+</button>
+<button class="flex h-8 items-center gap-2 rounded-lg bg-[#f0f4f2] dark:bg-[#1f3629] hover:bg-[#e1e8e5] dark:hover:bg-[#2a4536] text-text-main dark:text-gray-300 px-4 text-xs font-medium transition-colors shrink-0">
+                            Arquivados
+                        </button>
+</div>
+</div>
+<!-- Split View Container -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start h-full">
+<!-- Left: List -->
+<div class="lg:col-span-4 flex flex-col gap-3 h-full overflow-hidden">
+<div class="flex flex-col gap-3 overflow-y-auto pr-1 pb-10">
+<!-- Card 1 (Active) -->
+<div class="bg-white dark:bg-surface-dark p-4 rounded-xl shadow-sm border-2 border-primary cursor-pointer transition-all group relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</div>
+<div class="flex items-center gap-3 mb-3">
+<div class="size-10 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-700 dark:text-green-400 font-bold">MK</div>
+<div>
+<h3 class="font-bold text-text-main dark:text-white">Marketing</h3>
+<p class="text-xs text-text-secondary dark:text-gray-400">Atualizado há 2h</p>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span class="text-text-secondary dark:text-gray-400">Orçamento</span>
+<span class="font-bold text-text-main dark:text-white">R$ 12.450 / R$ 15.000</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-2 overflow-hidden">
+<div class="bg-primary h-2 rounded-full" style="width: 83%"></div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white dark:bg-surface-dark p-4 rounded-xl shadow-sm border border-transparent hover:border-gray-200 dark:hover:border-gray-700 cursor-pointer transition-all hover:translate-y-[-2px]">
+<div class="flex items-center gap-3 mb-3">
+<div class="size-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-700 dark:text-blue-400 font-bold">TI</div>
+<div>
+<h3 class="font-bold text-text-main dark:text-white">Tecnologia</h3>
+<p class="text-xs text-text-secondary dark:text-gray-400">Atualizado ontem</p>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span class="text-text-secondary dark:text-gray-400">Orçamento</span>
+<span class="font-bold text-text-main dark:text-white">R$ 4.200 / R$ 8.000</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-2 overflow-hidden">
+<div class="bg-blue-500 h-2 rounded-full" style="width: 52%"></div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white dark:bg-surface-dark p-4 rounded-xl shadow-sm border border-transparent hover:border-gray-200 dark:hover:border-gray-700 cursor-pointer transition-all hover:translate-y-[-2px]">
+<div class="flex items-center gap-3 mb-3">
+<div class="size-10 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-700 dark:text-orange-400 font-bold">RH</div>
+<div>
+<h3 class="font-bold text-text-main dark:text-white">Recursos Humanos</h3>
+<p class="text-xs text-text-secondary dark:text-gray-400">Atualizado em 24/05</p>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span class="text-text-secondary dark:text-gray-400">Orçamento</span>
+<span class="font-bold text-text-main dark:text-white">R$ 1.100 / R$ 5.000</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-2 overflow-hidden">
+<div class="bg-orange-400 h-2 rounded-full" style="width: 22%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Details Panel -->
+<div class="lg:col-span-8 bg-white dark:bg-surface-dark rounded-2xl shadow-sm border border-[#e5e7eb] dark:border-[#1f3629] flex flex-col overflow-hidden min-h-[600px]">
+<!-- Panel Header -->
+<div class="p-6 border-b border-[#e5e7eb] dark:border-[#1f3629] flex justify-between items-start">
+<div class="flex gap-4">
+<div class="size-14 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-700 dark:text-green-400 text-2xl font-bold shadow-inner">MK</div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="text-xl font-bold text-text-main dark:text-white">Marketing</h2>
+<span class="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 text-xs font-medium px-2 py-0.5 rounded-full">Ativo</span>
+</div>
+<p class="text-sm text-text-secondary dark:text-gray-400 mt-1">Centro de custo para campanhas e mídia paga</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg text-text-secondary hover:text-text-main hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 rounded-lg text-text-secondary hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<!-- Tabs -->
+<div class="px-6 border-b border-[#e5e7eb] dark:border-[#1f3629]">
+<div class="flex gap-6">
+<button class="py-4 text-sm font-semibold text-primary border-b-2 border-primary">Visão Geral</button>
+<button class="py-4 text-sm font-medium text-text-secondary hover:text-text-main dark:text-gray-400 dark:hover:text-white transition-colors">Colaboração</button>
+<button class="py-4 text-sm font-medium text-text-secondary hover:text-text-main dark:text-gray-400 dark:hover:text-white transition-colors">Permissões</button>
+</div>
+</div>
+<!-- Tab Content -->
+<div class="p-6 flex-1 overflow-y-auto">
+<!-- Budget Section -->
+<div class="mb-8">
+<h3 class="text-sm font-bold text-text-main dark:text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">monetization_on</span>
+                                    Orçamento Mensal
+                                </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-[#f0f4f2] dark:bg-[#1f3629] p-4 rounded-xl">
+<p class="text-xs text-text-secondary dark:text-gray-400 mb-1">Limite Definido</p>
+<div class="flex items-center gap-2">
+<span class="text-2xl font-black text-text-main dark:text-white">R$ 15.000,00</span>
+<button class="text-primary hover:text-primary-dark text-xs font-bold underline">Alterar</button>
+</div>
+</div>
+<div class="bg-[#f0f4f2] dark:bg-[#1f3629] p-4 rounded-xl">
+<p class="text-xs text-text-secondary dark:text-gray-400 mb-1">Gasto Atual</p>
+<div class="flex items-center gap-2">
+<span class="text-2xl font-black text-red-500">R$ 12.450,00</span>
+<span class="text-xs font-medium text-red-500 bg-red-100 dark:bg-red-900/30 px-2 py-0.5 rounded-full">83%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Team Section -->
+<div>
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-sm font-bold text-text-main dark:text-white uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">group</span>
+                                        Membros da Equipe
+                                    </h3>
+<button class="text-xs font-bold text-primary hover:text-primary-dark flex items-center gap-1">
+<span class="material-symbols-outlined text-base">person_add</span>
+                                        Convidar
+                                    </button>
+</div>
+<div class="border border-[#e5e7eb] dark:border-[#1f3629] rounded-xl overflow-hidden">
+<table class="w-full text-left text-sm">
+<thead class="bg-[#f0f4f2] dark:bg-[#1a2c22] text-text-secondary dark:text-gray-400">
+<tr>
+<th class="px-4 py-3 font-medium">Usuário</th>
+<th class="px-4 py-3 font-medium">Email</th>
+<th class="px-4 py-3 font-medium">Função</th>
+<th class="px-4 py-3 font-medium text-right">Ações</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#e5e7eb] dark:divide-[#1f3629]">
+<tr class="hover:bg-gray-50 dark:hover:bg-[#1f3629]/50 transition-colors">
+<td class="px-4 py-3">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-cover bg-center" data-alt="Portrait of Ana Silva" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDcmljdBfwP26QaNpakg-hU4UkARVr5P7rcTx38CjbLKOF-qnvPULgGr89tgz3XGCj-PiEODov-BQ3-wYBrYsxg0PP550y8g7Eyw7GQSHv9nsVGz7GuxE1C1nJe9R0OpW0unaMVf65NnbZUkdLFwF3RK9ba90DVTP0ZEqVbzDmKF6p4WyAmDNJX-oCxwci9tQ1f8Ndyz7v2RMjRe0GBZo2f6YWIEeANeUKo7tdRDIaRWF3M-ziVzF9Xcfb6B84wxnmS5FXpEmgg-mk");'></div>
+<span class="font-medium text-text-main dark:text-white">Ana Silva</span>
+<span class="bg-primary/20 text-primary-dark dark:text-primary text-[10px] font-bold px-1.5 py-0.5 rounded ml-2">Você</span>
+</div>
+</td>
+<td class="px-4 py-3 text-text-secondary dark:text-gray-400">ana@finance.co</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300">
+                                                        Admin
+                                                    </span>
+</td>
+<td class="px-4 py-3 text-right">
+<!-- Admin can't edit themselves usually, placeholder icon -->
+<span class="material-symbols-outlined text-gray-300 text-lg">lock</span>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-[#1f3629]/50 transition-colors">
+<td class="px-4 py-3">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-cover bg-center" data-alt="Portrait of Carlos Mendez" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD7HgK1mCtXpEUSsCs7CVpLaBLFANNenczphs22RC5YYHsWRz-gZeAOfyNMnuAr_QcHjBPItcreyAP7Yz7F7wOU7QKOxNTvcXXVLiWa2TK-ovc89HNgTYeGXy2pIrC8icThC65MA7BGflriXpOTGmXXCjCRbrbpGKiSz-IhXAzCa7lxIwbE4G-VPcwce1UcGCKybP2hVjspS_7dARdjaWxnguvhrXcO_GIq5bl0GjsYoptPQN9DCv3HwrixgUKzVkjR9vlG_NTJ-Os");'></div>
+<span class="font-medium text-text-main dark:text-white">Carlos Mendez</span>
+</div>
+</td>
+<td class="px-4 py-3 text-text-secondary dark:text-gray-400">carlos@finance.co</td>
+<td class="px-4 py-3">
+<select class="bg-transparent text-xs font-medium text-text-main dark:text-white border-none focus:ring-0 cursor-pointer py-1 pr-8">
+<option>Editor</option>
+<option>Visualizador</option>
+<option>Admin</option>
+</select>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-text-secondary hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">remove_circle_outline</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-[#1f3629]/50 transition-colors">
+<td class="px-4 py-3">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold">JL</div>
+<span class="font-medium text-text-main dark:text-white">Julia Lima</span>
+</div>
+</td>
+<td class="px-4 py-3 text-text-secondary dark:text-gray-400">julia@finance.co</td>
+<td class="px-4 py-3">
+<select class="bg-transparent text-xs font-medium text-text-main dark:text-white border-none focus:ring-0 cursor-pointer py-1 pr-8">
+<option selected="">Visualizador</option>
+<option>Editor</option>
+<option>Admin</option>
+</select>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-text-secondary hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">remove_circle_outline</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Invite Box -->
+<div class="mt-4 flex gap-3 p-4 bg-[#f0f4f2] dark:bg-[#1a2c22] rounded-xl items-end">
+<div class="flex-1">
+<label class="block text-xs font-medium text-text-secondary dark:text-gray-400 mb-1">Convidar novo membro</label>
+<input class="w-full rounded-lg border-none bg-white dark:bg-[#102218] text-sm text-text-main dark:text-white focus:ring-2 focus:ring-primary h-10 px-3" placeholder="email@exemplo.com" type="email"/>
+</div>
+<div class="w-32">
+<select class="w-full rounded-lg border-none bg-white dark:bg-[#102218] text-sm text-text-main dark:text-white focus:ring-2 focus:ring-primary h-10 px-3 cursor-pointer">
+<option>Editor</option>
+<option>Visualizador</option>
+<option>Admin</option>
+</select>
+</div>
+<button class="bg-text-main dark:bg-primary text-white dark:text-[#052e16] h-10 px-4 rounded-lg text-sm font-bold hover:opacity-90 transition-opacity">
+                                        Enviar
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="p-6 border-t border-[#e5e7eb] dark:border-[#1f3629] flex justify-end gap-3 bg-[#fbfdfc] dark:bg-[#182a21]">
+<button class="px-4 py-2 text-sm font-medium text-text-secondary hover:text-text-main dark:text-gray-400 dark:hover:text-white transition-colors">Cancelar</button>
+<button class="px-6 py-2 bg-primary hover:bg-primary-dark text-[#052e16] text-sm font-bold rounded-lg shadow-sm transition-all active:scale-95">Salvar Alterações</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Simple JS to handle active states just for preview -->
+<script>
+        // This is strictly for demonstration purposes as per "no JS code" instruction usually implies functional logic, 
+        // but toggle class logic is sometimes needed for UI states in static previews. 
+        // I kept it minimal to zero.
+    </script>
+</body></html>

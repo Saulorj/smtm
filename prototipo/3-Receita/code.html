@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cadastro de Receita - Finanças App</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec6d",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#102218",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2c24",
+                        "text-main": "#111814",
+                        "text-muted": "#618972",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main font-display antialiased min-h-screen flex overflow-hidden">
+<!-- Sidebar (Desktop) -->
+<aside class="hidden lg:flex w-64 flex-col border-r border-[#e5e7eb] dark:border-[#2a3c32] bg-surface-light dark:bg-surface-dark h-screen sticky top-0">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-primary/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary" style="font-size: 28px;">account_balance_wallet</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-text-main dark:text-white">Finanças</h1>
+</div>
+<nav class="flex-1 px-4 py-4 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-main dark:text-gray-200 hover:bg-background-light dark:hover:bg-[#23362e] transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary">home</span>
+<span class="font-medium">Visão Geral</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg bg-primary/10 text-text-main dark:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-primary fill-1">trending_up</span>
+<span class="font-medium text-primary">Receitas</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-main dark:text-gray-200 hover:bg-background-light dark:hover:bg-[#23362e] transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary">trending_down</span>
+<span class="font-medium">Despesas</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-main dark:text-gray-200 hover:bg-background-light dark:hover:bg-[#23362e] transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary">bar_chart</span>
+<span class="font-medium">Relatórios</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-main dark:text-gray-200 hover:bg-background-light dark:hover:bg-[#23362e] transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary">settings</span>
+<span class="font-medium">Configurações</span>
+</a>
+</nav>
+<div class="p-4 border-t border-[#e5e7eb] dark:border-[#2a3c32]">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 border border-gray-200 dark:border-gray-700" data-alt="User profile picture placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDKJYFJWmTn0asaG44hEUHCayEw_tMc7PfqB073zxd9fW-FmimQU24s6Cd79A_8nf7Mhlt58w_I6fSXWvojUjiTDf0TX2DR0JLCfrn_WtF8MkUONZWQjyp7eEfRKegu3NbRb2t3NTrZ9bmyHPONfa1Xn-MS6y_XwrYu9euoQFGBj0rv3qrXKyd1XOXdROmmD0EEASucdTHnkp3k5eXnOvdZvPJ2STEZu-VGs34ODgiA_1mV6eFXyy9iOXfw1zjJyR_EFXG677cuNh4");'>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-text-main dark:text-white">Ana Silva</span>
+<span class="text-xs text-text-muted">ana.silva@email.com</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col h-screen overflow-hidden relative">
+<!-- Mobile Header -->
+<header class="lg:hidden flex items-center justify-between px-4 py-3 bg-surface-light dark:bg-surface-dark border-b border-[#e5e7eb] dark:border-[#2a3c32]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+<span class="font-bold text-lg dark:text-white">Finanças</span>
+</div>
+<button class="p-2 text-text-main dark:text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<!-- Main Scrollable Area -->
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark p-4 md:p-8 lg:p-12">
+<div class="max-w-4xl mx-auto space-y-8">
+<!-- Page Heading -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-text-muted text-sm font-medium mb-1">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+<a class="hover:underline" href="#">Voltar para Visão Geral</a>
+</div>
+<h2 class="text-3xl md:text-4xl font-bold text-text-main dark:text-white tracking-tight">Nova Receita</h2>
+<p class="text-text-muted dark:text-gray-400">Registre suas entradas financeiras para manter seu controle em dia.</p>
+</div>
+</div>
+<!-- Form Container -->
+<form class="bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-[#e5e7eb] dark:border-[#2a3c32] overflow-hidden">
+<div class="p-6 md:p-8 space-y-8">
+<!-- Value Input Section (Prominent) -->
+<div class="space-y-3">
+<label class="block text-sm font-medium text-text-muted dark:text-gray-400 uppercase tracking-wider" for="amount">Valor da Receita</label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="text-text-muted text-lg font-medium">R$</span>
+</div>
+<input class="block w-full pl-12 pr-4 py-4 bg-background-light dark:bg-[#102218] border border-[#dbe6e0] dark:border-[#2a3c32] rounded-xl text-3xl font-bold text-text-main dark:text-white placeholder:text-gray-300 dark:placeholder:text-gray-600 focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none" id="amount" name="amount" placeholder="0,00" type="text"/>
+</div>
+</div>
+<!-- Grid for other fields -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Description -->
+<div class="space-y-2 md:col-span-2">
+<label class="block text-sm font-medium text-text-main dark:text-gray-200" for="description">Descrição</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-text-muted text-xl">description</span>
+</div>
+<input class="block w-full pl-10 pr-4 py-3 bg-white dark:bg-[#1a2c24] border border-[#dbe6e0] dark:border-[#2a3c32] rounded-lg text-text-main dark:text-white placeholder:text-text-muted focus:ring-1 focus:ring-primary focus:border-primary transition-colors" id="description" placeholder="Ex: Salário mensal, Freelance, Venda..." type="text"/>
+</div>
+</div>
+<!-- Date -->
+<div class="space-y-2">
+<label class="block text-sm font-medium text-text-main dark:text-gray-200" for="date">Data do Recebimento</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-text-muted text-xl">calendar_today</span>
+</div>
+<input class="block w-full pl-10 pr-4 py-3 bg-white dark:bg-[#1a2c24] border border-[#dbe6e0] dark:border-[#2a3c32] rounded-lg text-text-main dark:text-white focus:ring-1 focus:ring-primary focus:border-primary transition-colors" id="date" type="date" value="2023-10-27"/>
+</div>
+</div>
+<!-- Category -->
+<div class="space-y-2">
+<label class="block text-sm font-medium text-text-main dark:text-gray-200" for="category">Categoria</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-text-muted text-xl">label</span>
+</div>
+<select class="block w-full pl-10 pr-10 py-3 bg-white dark:bg-[#1a2c24] border border-[#dbe6e0] dark:border-[#2a3c32] rounded-lg text-text-main dark:text-white focus:ring-1 focus:ring-primary focus:border-primary transition-colors appearance-none" id="category">
+<option disabled="" selected="" value="">Selecione uma categoria</option>
+<option value="salary">Salário</option>
+<option value="freelance">Freelance</option>
+<option value="investments">Investimentos</option>
+<option value="gifts">Presentes</option>
+<option value="other">Outros</option>
+</select>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-text-muted">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Account Selection (Full Width on mobile, spanned on desktop) -->
+<div class="space-y-2 md:col-span-2">
+<label class="block text-sm font-medium text-text-main dark:text-gray-200 mb-2">Conta de Destino</label>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+<!-- Option 1 -->
+<label class="relative flex items-center gap-3 p-3 rounded-lg border border-[#dbe6e0] dark:border-[#2a3c32] cursor-pointer hover:bg-background-light dark:hover:bg-[#23362e] has-[:checked]:border-primary has-[:checked]:bg-primary/5 transition-all">
+<input checked="" class="peer sr-only" name="account" type="radio"/>
+<div class="size-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<div class="flex flex-col">
+<span class="font-medium text-text-main dark:text-white">Nubank</span>
+<span class="text-xs text-text-muted">Conta Corrente</span>
+</div>
+<div class="absolute top-3 right-3 hidden peer-checked:block text-primary">
+<span class="material-symbols-outlined fill-1 text-xl">check_circle</span>
+</div>
+</label>
+<!-- Option 2 -->
+<label class="relative flex items-center gap-3 p-3 rounded-lg border border-[#dbe6e0] dark:border-[#2a3c32] cursor-pointer hover:bg-background-light dark:hover:bg-[#23362e] has-[:checked]:border-primary has-[:checked]:bg-primary/5 transition-all">
+<input class="peer sr-only" name="account" type="radio"/>
+<div class="size-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined">savings</span>
+</div>
+<div class="flex flex-col">
+<span class="font-medium text-text-main dark:text-white">Inter</span>
+<span class="text-xs text-text-muted">Poupança</span>
+</div>
+<div class="absolute top-3 right-3 hidden peer-checked:block text-primary">
+<span class="material-symbols-outlined fill-1 text-xl">check_circle</span>
+</div>
+</label>
+<!-- Option 3 -->
+<label class="relative flex items-center gap-3 p-3 rounded-lg border border-[#dbe6e0] dark:border-[#2a3c32] cursor-pointer hover:bg-background-light dark:hover:bg-[#23362e] has-[:checked]:border-primary has-[:checked]:bg-primary/5 transition-all">
+<input class="peer sr-only" name="account" type="radio"/>
+<div class="size-10 rounded-full bg-green-100 flex items-center justify-center text-green-700">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div class="flex flex-col">
+<span class="font-medium text-text-main dark:text-white">Carteira</span>
+<span class="text-xs text-text-muted">Dinheiro físico</span>
+</div>
+<div class="absolute top-3 right-3 hidden peer-checked:block text-primary">
+<span class="material-symbols-outlined fill-1 text-xl">check_circle</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Attachment (Drag & Drop UI) -->
+<div class="md:col-span-2 pt-2">
+<label class="block text-sm font-medium text-text-main dark:text-gray-200 mb-2">Comprovante / Recibo (Opcional)</label>
+<div class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-[#dbe6e0] dark:border-[#2a3c32] rounded-xl hover:border-primary/50 hover:bg-background-light dark:hover:bg-[#23362e] transition-all cursor-pointer group">
+<div class="flex flex-col items-center justify-center pt-5 pb-6">
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary mb-2 text-3xl">cloud_upload</span>
+<p class="text-sm text-text-muted"><span class="font-semibold text-primary">Clique para enviar</span> ou arraste e solte</p>
+<p class="text-xs text-text-muted mt-1">PNG, JPG ou PDF (MAX. 2MB)</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="px-6 py-4 bg-[#f9fafb] dark:bg-[#13241b] border-t border-[#e5e7eb] dark:border-[#2a3c32] flex items-center justify-end gap-3">
+<button class="px-6 py-2.5 rounded-lg text-sm font-medium text-text-main dark:text-white hover:bg-gray-100 dark:hover:bg-[#23362e] transition-colors" type="button">
+                            Cancelar
+                        </button>
+<button class="px-6 py-2.5 rounded-lg text-sm font-medium bg-primary text-[#0d3621] hover:bg-[#0fdc63] shadow-sm hover:shadow transition-all flex items-center gap-2" type="button">
+<span class="material-symbols-outlined text-lg">check</span>
+                            Salvar Receita
+                        </button>
+</div>
+</form>
+</div>
+</main>
+</div>
+</body></html>
